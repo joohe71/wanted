@@ -1,0 +1,22 @@
+{
+    "root": true, //eslint가 상위 디렉터리를 확인하지 않게 루트 디렉터리임을 명시
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error"]
+    }
+  }

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,28 +12,45 @@ const Login = () => {
     email: false,
     password: false,
   });
+
   // 유저 로그인 데이터 변경 함수
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
     if (e.target.name === "email") checkEmail(e.target.value);
     if (e.target.name === "password") checkPassword(e.target.value);
-    console.log(isValid);
   };
+
   // 이메일 형식 체크
   const checkEmail = (email: string) => {
     const regex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     setIsValid({ ...isValid, email: regex.test(email) });
   };
+
   // 비밀번호 형식 체크
   const checkPassword = (password: string) => {
     if (password.length < 8) setIsValid({ ...isValid, password: false });
     else setIsValid({ ...isValid, password: true });
   };
 
+  // 제출 버튼 클릭 이벤트
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/users/login",
+        userData
+      );
+      await alert(res.data.message);
+      await navigate("/");
+    } catch {
+      alert("로그인 실패");
+    }
+  };
+
   return (
     <Layout>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <fieldset>
           <legend>로그인</legend>
           <Col>
@@ -62,15 +80,7 @@ const Login = () => {
             <a onClick={() => navigate("/register")}> 회원가입</a>
           </div>
 
-          <button
-            type="submit"
-            disabled={!isValid.email || !isValid.password}
-            onClick={() => {
-              alert(`${userData.email} ${userData.password}`);
-              console.log(checkEmail(userData.email));
-              console.log(checkPassword(userData.password));
-            }}
-          >
+          <button type="submit" disabled={!isValid.email || !isValid.password}>
             로그인
           </button>
         </fieldset>

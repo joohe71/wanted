@@ -1,7 +1,8 @@
 import React from "react";
+import Root from "./Root";
 
 function App() {
-  return <div className="App"></div>;
+  return <Root />;
 }
 
 export default App;

@@ -41,6 +41,7 @@ const Login = () => {
         "http://localhost:8080/users/login",
         userData
       );
+      await localStorage.setItem("token", res.data.token);
       await alert(res.data.message);
       await navigate("/");
     } catch {

@@ -5,6 +5,9 @@ import styled from "styled-components";
 const ToDo = () => {
   const navigate = useNavigate();
 
+  const [isClicked, setIsClicked] = React.useState(false);
+  const [todoInput, setTodoInput] = React.useState("");
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     alert("로그아웃 성공");
@@ -14,6 +17,7 @@ const ToDo = () => {
   useEffect(() => {
     if (localStorage.getItem("token") === null) navigate("/login");
   });
+
   return (
     <div>
       <Nav>
@@ -22,6 +26,19 @@ const ToDo = () => {
           로그아웃
         </div>
       </Nav>
+      {isClicked && (
+        <input
+          value={todoInput}
+          onChange={(e) => setTodoInput(e.target.value)}
+        ></input>
+      )}
+      <button onClick={() => setIsClicked((prev) => !prev)}>
+        할일 추가 버튼
+      </button>
+      <ul>
+        <li>할일 1</li>
+        <li>할일 2</li>
+      </ul>
     </div>
   );
 };

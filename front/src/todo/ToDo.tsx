@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import ToDoAddForm from "./ToDoAddForm";
 
 const ToDo = () => {
   const navigate = useNavigate();
-
   const [isClicked, setIsClicked] = React.useState(false);
-  const [todoInput, setTodoInput] = React.useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -19,27 +18,24 @@ const ToDo = () => {
   });
 
   return (
-    <div>
-      <Nav>
-        <h1 id="header">ToDo List</h1>
-        <div id="logout" onClick={handleLogout}>
-          로그아웃
-        </div>
-      </Nav>
-      {isClicked && (
-        <input
-          value={todoInput}
-          onChange={(e) => setTodoInput(e.target.value)}
-        ></input>
-      )}
-      <button onClick={() => setIsClicked((prev) => !prev)}>
-        할일 추가 버튼
-      </button>
-      <ul>
-        <li>할일 1</li>
-        <li>할일 2</li>
-      </ul>
-    </div>
+    <>
+      {isClicked && <ToDoAddForm />}
+      <div>
+        <Nav>
+          <h1 id="header">ToDo List</h1>
+          <div id="logout" onClick={handleLogout}>
+            로그아웃
+          </div>
+        </Nav>
+        <button onClick={() => setIsClicked((prev) => !prev)}>
+          할일 추가 버튼
+        </button>
+        <ul>
+          <li>할일 1</li>
+          <li>할일 2</li>
+        </ul>
+      </div>
+    </>
   );
 };
 

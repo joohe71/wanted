@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
 import axios from "axios";
+import ToDoList from "./ToDoList";
 
 export interface ToDoProps {
   todos: { title: string; content: string }[];
@@ -64,11 +65,7 @@ const ToDo = () => {
         <button onClick={() => setIsClicked((prev) => !prev)}>
           할일 추가 버튼
         </button>
-        <ul>
-          {todos.map((todo, index) => (
-            <li key={`todo-${index}`}>{todo.title}</li>
-          ))}
-        </ul>
+        <ToDoList todos={todos} />
       </div>
     </>
   );

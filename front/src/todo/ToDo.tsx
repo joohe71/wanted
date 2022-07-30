@@ -2,10 +2,16 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
+import axios from "axios";
+
+export interface ToDoProps {
+  todos: { title: string; content: string }[];
+}
 
 const ToDo = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = React.useState(false);
+  const [todos, setTodos] = React.useState<ToDoProps["todos"]>([]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -13,13 +19,41 @@ const ToDo = () => {
     navigate("/login");
   };
 
+  const handleAdd = () => setIsClicked((prev) => !prev);
+
+  const handleUpdate = (title: string, content: string) => {
+    const copied = [...todos];
+    copied.push({ title, content });
+    setTodos(copied);
+  };
+
   useEffect(() => {
     if (localStorage.getItem("token") === null) navigate("/login");
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get("http://localhost:8080/todos", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(res.data.data);
+      await setTodos(
+        res.data.data.map((todo: any) => ({
+          title: todo.title,
+          content: todo.content,
+        }))
+      );
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
-      {isClicked && <ToDoAddForm />}
+      {isClicked && (
+        <ToDoAddForm handleAdd={handleAdd} handleUpdate={handleUpdate} />
+      )}
       <div>
         <Nav>
           <h1 id="header">ToDo List</h1>
@@ -31,8 +65,9 @@ const ToDo = () => {
           할일 추가 버튼
         </button>
         <ul>
-          <li>할일 1</li>
-          <li>할일 2</li>
+          {todos.map((todo, index) => (
+            <li key={`todo-${index}`}>{todo.title}</li>
+          ))}
         </ul>
       </div>
     </>

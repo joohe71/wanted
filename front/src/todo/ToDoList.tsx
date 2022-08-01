@@ -2,7 +2,7 @@ import React from "react";
 import { ToDoProps } from "./ToDo";
 import styled from "styled-components";
 
-const ToDoList = ({ todos }: ToDoProps) => {
+const ToDoList = ({ todos, handleDelete }: ToDoProps) => {
   return (
     <Ul>
       {todos.map((todo, index) => (
@@ -10,7 +10,7 @@ const ToDoList = ({ todos }: ToDoProps) => {
           <li key={`todo-${index}`}>{todo.title}</li>
           <Group>
             <button>수정</button>
-            <button onClick={() => console.log(todo)}>삭제</button>
+            <button onClick={() => handleDelete(todo)}>삭제</button>
           </Group>
         </Group>
       ))}

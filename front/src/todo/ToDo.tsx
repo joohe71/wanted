@@ -5,8 +5,14 @@ import ToDoAddForm from "./ToDoAddForm";
 import axios from "axios";
 import ToDoList from "./ToDoList";
 
+type ToDoData = {
+  title: string;
+  content: string;
+  id: string;
+};
 export interface ToDoProps {
   todos: { title: string; content: string; id: string }[];
+  handleDelete: (item: ToDoData) => void;
 }
 
 const ToDo = () => {
@@ -29,11 +35,16 @@ const ToDo = () => {
     setTodos(copied);
   };
 
-  // const handleDelete = async(item:any) => {
-  //   const copied = [...todos];
-  //   await copied.splice(todos.indexOf(item), 1);
-  //   await setTodos(copied);
-  // }
+  const handleDelete = async (item: any) => {
+    await axios.delete(`http://localhost:8080/todos/${item.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const copied = [...todos];
+    await copied.splice(todos.indexOf(item), 1);
+    await setTodos(copied);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) navigate("/login");
@@ -74,7 +85,7 @@ const ToDo = () => {
           <button onClick={() => setIsClicked((prev) => !prev)}>
             할일 추가 버튼
           </button>
-          <ToDoList todos={todos} />
+          <ToDoList todos={todos} handleDelete={handleDelete} />
         </Container>
       </div>
     </>

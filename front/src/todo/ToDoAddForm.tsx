@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 interface ToDoAddFormProps {
   handleAdd: () => void;
-  handleUpdate: (title: string, content: string) => void;
+  handleUpdate: (title: string, content: string, id: string) => void;
 }
 
 // 새로운 할일을 추가하는 폼을 보여주는 컴포넌트
@@ -17,12 +17,17 @@ const ToDoAddForm = ({ handleAdd, handleUpdate }: ToDoAddFormProps) => {
   };
   // 할 일 추가 핸들러
   const handleSubmit = async () => {
-    await axios.post("http://localhost:8080/todos", addData, {
+    const res = await axios.post("http://localhost:8080/todos", addData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    await handleUpdate(addData.title, addData.content);
+
+    await handleUpdate(
+      res.data.data.title,
+      res.data.data.content,
+      res.data.data.id
+    );
     await handleAdd();
   };
   return (

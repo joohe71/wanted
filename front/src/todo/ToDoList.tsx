@@ -10,7 +10,7 @@ const ToDoList = ({ todos }: ToDoProps) => {
           <li key={`todo-${index}`}>{todo.title}</li>
           <Group>
             <button>수정</button>
-            <button>삭제</button>
+            <button onClick={() => console.log(todo)}>삭제</button>
           </Group>
         </Group>
       ))}

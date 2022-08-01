@@ -6,7 +6,7 @@ import axios from "axios";
 import ToDoList from "./ToDoList";
 
 export interface ToDoProps {
-  todos: { title: string; content: string }[];
+  todos: { title: string; content: string; id: string }[];
 }
 
 const ToDo = () => {
@@ -22,11 +22,18 @@ const ToDo = () => {
 
   const handleAdd = () => setIsClicked((prev) => !prev);
 
-  const handleUpdate = (title: string, content: string) => {
+  const handleUpdate = (title: string, content: string, id: string) => {
     const copied = [...todos];
-    copied.push({ title, content });
+    copied.push({ title, content, id });
+
     setTodos(copied);
   };
+
+  // const handleDelete = async(item:any) => {
+  //   const copied = [...todos];
+  //   await copied.splice(todos.indexOf(item), 1);
+  //   await setTodos(copied);
+  // }
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) navigate("/login");
@@ -44,6 +51,7 @@ const ToDo = () => {
         res.data.data.map((todo: any) => ({
           title: todo.title,
           content: todo.content,
+          id: todo.id,
         }))
       );
     };

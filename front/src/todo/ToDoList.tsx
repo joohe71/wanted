@@ -2,14 +2,14 @@ import React from "react";
 import { ToDoProps } from "./ToDo";
 import styled from "styled-components";
 
-const ToDoList = ({ todos, handleDelete }: ToDoProps) => {
+const ToDoList = ({ todos, handleDelete, handleEditClick }: ToDoProps) => {
   return (
     <Ul>
       {todos.map((todo, index) => (
         <Group key={`todo-${index}`}>
           <li key={`todo-${index}`}>{todo.title}</li>
           <Group>
-            <button>수정</button>
+            <button onClick={() => handleEditClick(todo)}>수정</button>
             <button onClick={() => handleDelete(todo)}>삭제</button>
           </Group>
         </Group>

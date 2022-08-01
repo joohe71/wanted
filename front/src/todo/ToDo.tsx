@@ -4,8 +4,9 @@ import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
 import axios from "axios";
 import ToDoList from "./ToDoList";
+import ToDoEditForm from "./ToDoEditForm";
 
-type ToDoData = {
+export type ToDoData = {
   title: string;
   content: string;
   id: string;
@@ -13,11 +14,18 @@ type ToDoData = {
 export interface ToDoProps {
   todos: { title: string; content: string; id: string }[];
   handleDelete: (item: ToDoData) => void;
+  handleEditClick: (item: ToDoData) => void;
 }
 
 const ToDo = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = React.useState(false);
+  const [isEdited, setIsEdited] = React.useState(false);
+  const [isEditData, setIsEditData] = React.useState<ToDoData>({
+    title: "",
+    content: "",
+    id: "",
+  });
   const [todos, setTodos] = React.useState<ToDoProps["todos"]>([]);
 
   const handleLogout = () => {
@@ -28,10 +36,22 @@ const ToDo = () => {
 
   const handleAdd = () => setIsClicked((prev) => !prev);
 
+  const handleEditClick = (item: ToDoData) => {
+    setIsEdited((prev) => !prev);
+    setIsEditData(item);
+  };
+
   const handleUpdate = (title: string, content: string, id: string) => {
     const copied = [...todos];
     copied.push({ title, content, id });
 
+    setTodos(copied);
+  };
+
+  const handleEdit = (title: string, content: string, id: string) => {
+    const copied = [...todos];
+    const index = copied.findIndex((item) => item.id === id);
+    copied[index] = { title, content, id };
     setTodos(copied);
   };
 
@@ -74,6 +94,13 @@ const ToDo = () => {
       {isClicked && (
         <ToDoAddForm handleAdd={handleAdd} handleUpdate={handleUpdate} />
       )}
+      {isEdited && (
+        <ToDoEditForm
+          handleEditClick={handleEditClick}
+          handleEdit={handleEdit}
+          isEditData={isEditData}
+        />
+      )}
       <div>
         <Nav>
           <h1 id="header">ToDo List</h1>
@@ -85,7 +112,11 @@ const ToDo = () => {
           <button onClick={() => setIsClicked((prev) => !prev)}>
             할일 추가 버튼
           </button>
-          <ToDoList todos={todos} handleDelete={handleDelete} />
+          <ToDoList
+            todos={todos}
+            handleDelete={handleDelete}
+            handleEditClick={handleEditClick}
+          />
         </Container>
       </div>
     </>

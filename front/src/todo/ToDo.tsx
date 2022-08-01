@@ -62,10 +62,12 @@ const ToDo = () => {
             로그아웃
           </div>
         </Nav>
-        <button onClick={() => setIsClicked((prev) => !prev)}>
-          할일 추가 버튼
-        </button>
-        <ToDoList todos={todos} />
+        <Container>
+          <button onClick={() => setIsClicked((prev) => !prev)}>
+            할일 추가 버튼
+          </button>
+          <ToDoList todos={todos} />
+        </Container>
       </div>
     </>
   );
@@ -83,6 +85,10 @@ const Nav = styled.div`
     margin-right: 10%;
     cursor: pointer;
   }
+`;
+
+const Container = styled.div`
+  padding: 0 10%;
 `;
 
 export default ToDo;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../layout/Header";
 import axios from "axios";
+import { Container, Div } from "./ToDo";
 
 const ToDoDetail = () => {
   const params = useParams();
@@ -25,13 +26,13 @@ const ToDoDetail = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <Div>
       <Header title={"Todo Detail"} />
-      <div>
-        <div>{detailData.title}</div>
+      <Container>
+        <h3>{detailData.title}</h3>
         <div>{detailData.content}</div>
-      </div>
-    </div>
+      </Container>
+    </Div>
   );
 };
 

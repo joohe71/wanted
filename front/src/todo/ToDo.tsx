@@ -98,7 +98,7 @@ const ToDo = () => {
           isEditData={isEditData}
         />
       )}
-      <div>
+      <Div>
         <Header title={"Todo List"} />
         <Container>
           <button onClick={() => setIsClicked((prev) => !prev)}>
@@ -110,13 +110,18 @@ const ToDo = () => {
             handleEditClick={handleEditClick}
           />
         </Container>
-      </div>
+      </Div>
     </>
   );
 };
 
-const Container = styled.div`
+export const Div = styled.div`
+  min-height: 90vh;
+`;
+
+export const Container = styled.div`
   padding: 0 10%;
+  min-height: 75vh;
 `;
 
 export default ToDo;

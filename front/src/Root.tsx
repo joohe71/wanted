@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
+import Footer from "./layout/Footer";
 import ToDo from "./todo/ToDo";
 import ToDoDetail from "./todo/ToDoDetail";
 
@@ -14,6 +15,7 @@ const Root = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };

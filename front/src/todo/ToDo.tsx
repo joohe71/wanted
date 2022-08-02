@@ -14,7 +14,7 @@ export type ToDoData = {
 export interface ToDoProps {
   todos: { title: string; content: string; id: string }[];
   handleDelete: (item: ToDoData) => void;
-  handleEditClick: (item: ToDoData) => void;
+  handleEditClick: (item?: ToDoData) => void;
 }
 
 const ToDo = () => {
@@ -36,9 +36,11 @@ const ToDo = () => {
 
   const handleAdd = () => setIsClicked((prev) => !prev);
 
-  const handleEditClick = (item: ToDoData) => {
+  const handleEditClick = (item?: ToDoData) => {
     setIsEdited((prev) => !prev);
-    setIsEditData(item);
+    if (item) {
+      setIsEditData(item);
+    }
   };
 
   const handleUpdate = (title: string, content: string, id: string) => {

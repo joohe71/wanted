@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ToDoData } from "./ToDo";
 
 interface ToDoEditFormProps {
-  handleEditClick: (item: ToDoData) => void;
+  handleEditClick: (item?: ToDoData) => void;
   handleEdit: (title: string, content: string, id: string) => void;
   isEditData: ToDoData;
 }
@@ -39,7 +39,7 @@ const ToDoEditForm = ({
       res.data.data.content,
       res.data.data.id
     );
-    await handleEditClick(editData);
+    await handleEditClick();
   };
 
   useEffect(() => {
@@ -67,7 +67,10 @@ const ToDoEditForm = ({
           value={editData.content}
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Edit</button>
+        <div>
+          <button onClick={handleSubmit}>Edit</button>
+          <button onClick={() => handleEditClick()}>취소</button>
+        </div>
       </Form>
     </Container>
   );

@@ -93,7 +93,7 @@ const Login = () => {
 const Layout = styled.div`
   // border: 2px solid red;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

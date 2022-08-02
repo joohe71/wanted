@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../layout/Header";
-import axios from "axios";
+import * as Api from "../api";
 import { Container, Div } from "./ToDo";
 
 const ToDoDetail = () => {
@@ -14,11 +14,7 @@ const ToDoDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8080/todos/${params.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await Api.get(`http://localhost:8080/todos/${params.id}`);
       console.log(res.data.data);
       const { title, content, id } = res.data.data;
       await setDetailData({ title, content, id });

@@ -1,4 +1,4 @@
-import axios from "axios";
+import * as Api from "../api";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ToDoData } from "./ToDo";
@@ -25,15 +25,10 @@ const ToDoEditForm = ({
   };
   // 할 일 수정(update) 핸들러
   const handleSubmit = async () => {
-    const res = await axios.put(
-      `http://localhost:8080/todos/${editData.id}`,
-      { title: editData.title, content: editData.content },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const res = await Api.put(`http://localhost:8080/todos/${editData.id}`, {
+      title: editData.title,
+      content: editData.content,
+    });
     await handleEdit(
       res.data.data.title,
       res.data.data.content,

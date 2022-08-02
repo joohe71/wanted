@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
-import axios from "axios";
+import * as Api from "../api";
 import ToDoList from "./ToDoList";
 import ToDoEditForm from "./ToDoEditForm";
 import Header from "../layout/Header";
@@ -53,11 +53,7 @@ const ToDo = () => {
   };
 
   const handleDelete = async (item: any) => {
-    await axios.delete(`http://localhost:8080/todos/${item.id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    await Api.delete(`http://localhost:8080/todos/${item.id}`);
     const copied = [...todos];
     await copied.splice(todos.indexOf(item), 1);
     await setTodos(copied);
@@ -69,11 +65,7 @@ const ToDo = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:8080/todos", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await Api.get("http://localhost:8080/todos");
       console.log(res.data.data);
       await setTodos(
         res.data.data.map((todo: any) => ({

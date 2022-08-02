@@ -1,4 +1,4 @@
-import axios from "axios";
+import * as Api from "../api";
 import React from "react";
 import styled from "styled-components";
 
@@ -17,11 +17,7 @@ const ToDoAddForm = ({ handleAdd, handleUpdate }: ToDoAddFormProps) => {
   };
   // 할 일 추가 핸들러
   const handleSubmit = async () => {
-    const res = await axios.post("http://localhost:8080/todos", addData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const res = await Api.post("http://localhost:8080/todos", addData);
 
     await handleUpdate(
       res.data.data.title,

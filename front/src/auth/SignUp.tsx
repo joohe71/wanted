@@ -5,45 +5,46 @@ import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  // 유저 로그인 데이터
+  // 유저 회원가입 데이터
   const [registerData, setRegisterData] = React.useState({
     email: "",
     password: "",
-    repassword: "",
+    passwordCheck: "",
   });
-  // 유저 로그인 유효성 검사
-  const [isValid, setIsValid] = React.useState({
+  // 유저 회원가입 유효성 검사
+  const [isRegisterValid, setIsRegisterValid] = React.useState({
     email: false,
     password: false,
-    repassword: false,
+    passwordCheck: false,
   });
 
-  // 유저 로그인 데이터 변경 함수
+  // 유저 회원가입 데이터 변경 함수
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
     if (e.target.name === "email") checkEmail(e.target.value);
     if (e.target.name === "password") checkPassword(e.target.value);
-    if (e.target.name === "repassword") isSamePassword(e.target.value);
+    if (e.target.name === "passwordCheck") isSamePassword(e.target.value);
   };
 
   // 이메일 형식 체크
   const checkEmail = (email: string) => {
     const regex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    setIsValid({ ...isValid, email: regex.test(email) });
+    setIsRegisterValid({ ...isRegisterValid, email: regex.test(email) });
   };
 
   // 비밀번호 형식 체크
   const checkPassword = (password: string) => {
-    if (password.length < 8) setIsValid({ ...isValid, password: false });
-    else setIsValid({ ...isValid, password: true });
+    if (password.length < 8)
+      setIsRegisterValid({ ...isRegisterValid, password: false });
+    else setIsRegisterValid({ ...isRegisterValid, password: true });
   };
 
   // 비밀번호 일치 체크
-  const isSamePassword = (repassword: string) => {
-    if (repassword === registerData.password)
-      setIsValid({ ...isValid, repassword: true });
-    else setIsValid({ ...isValid, repassword: false });
+  const isSamePassword = (passwordCheck: string) => {
+    if (passwordCheck === registerData.password)
+      setIsRegisterValid({ ...isRegisterValid, passwordCheck: true });
+    else setIsRegisterValid({ ...isRegisterValid, passwordCheck: false });
   };
 
   // 등록 버튼 클릭 이벤트
@@ -95,9 +96,9 @@ const SignUp = () => {
             <input
               type="password"
               id="againpw"
-              name="repassword"
+              name="passwordCheck"
               placeholder="비밀번호를 입력해 주세요"
-              value={registerData.repassword}
+              value={registerData.passwordCheck}
               onChange={handleChange}
             />
           </Col>
@@ -108,7 +109,9 @@ const SignUp = () => {
           <button
             type="submit"
             disabled={
-              !isValid.email || !isValid.password || !isValid.repassword
+              !isRegisterValid.email ||
+              !isRegisterValid.password ||
+              !isRegisterValid.passwordCheck
             }
           >
             회원가입

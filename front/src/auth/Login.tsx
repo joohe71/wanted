@@ -8,7 +8,7 @@ const Login = () => {
   // 유저 로그인 데이터
   const [userData, setUserData] = React.useState({ email: "", password: "" });
   // 유저 로그인 유효성 검사
-  const [isValid, setIsValid] = React.useState({
+  const [isLoginValid, setIsLoginValid] = React.useState({
     email: false,
     password: false,
   });
@@ -24,13 +24,14 @@ const Login = () => {
   const checkEmail = (email: string) => {
     const regex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    setIsValid({ ...isValid, email: regex.test(email) });
+    setIsLoginValid({ ...isLoginValid, email: regex.test(email) });
   };
 
   // 비밀번호 형식 체크
   const checkPassword = (password: string) => {
-    if (password.length < 8) setIsValid({ ...isValid, password: false });
-    else setIsValid({ ...isValid, password: true });
+    if (password.length < 8)
+      setIsLoginValid({ ...isLoginValid, password: false });
+    else setIsLoginValid({ ...isLoginValid, password: true });
   };
 
   // 제출 버튼 클릭 이벤트
@@ -81,7 +82,10 @@ const Login = () => {
             <a onClick={() => navigate("/register")}> 회원가입</a>
           </div>
 
-          <button type="submit" disabled={!isValid.email || !isValid.password}>
+          <button
+            type="submit"
+            disabled={!isLoginValid.email || !isLoginValid.password}
+          >
             로그인
           </button>
         </fieldset>

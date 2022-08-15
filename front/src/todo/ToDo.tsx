@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
 import * as Api from "../api";
@@ -19,7 +19,7 @@ export interface ToDoProps {
 }
 
 const ToDo = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isClicked, setIsClicked] = React.useState(false);
   const [isEdited, setIsEdited] = React.useState(false);
   const [isEditData, setIsEditData] = React.useState<ToDoData>({
@@ -59,9 +59,11 @@ const ToDo = () => {
     await setTodos(copied);
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("token") === null) navigate("/login");
-  });
+  // 1. 일단 이동하면 안되는 페이지로 들어감
+  // 2. useEffect는 render 페이즈 이후에 실행되므로 무조건 화면이 보이게 됨
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") === null) navigate("/login");
+  // });
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../layout/Header";
-import * as Api from "../api";
+import * as Api from "../api/Api";
 import { Container, Div } from "./ToDo";
 
 const ToDoDetail = () => {

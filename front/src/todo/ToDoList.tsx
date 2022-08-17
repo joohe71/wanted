@@ -6,31 +6,43 @@ import { useNavigate } from "react-router-dom";
 const ToDoList = ({ todos, handleDelete, handleEditClick }: ToDoProps) => {
   const navigate = useNavigate();
   return (
-    <Ul>
+    <React.Fragment>
       {todos.map((todo, index) => (
         <Group key={`todo-${index}`}>
-          <li key={`todo-${index}`} onClick={() => navigate(`/${todo.id}`)}>
+          <Li key={`todo-${index}`} onClick={() => navigate(`/${todo.id}`)}>
             {todo.title}
-          </li>
-          <Group>
-            <button onClick={() => handleEditClick(todo)}>수정</button>
-            <button onClick={() => handleDelete(todo)}>삭제</button>
-          </Group>
+          </Li>
+          <ButtonGroup>
+            <Button onClick={() => handleEditClick(todo)}>수정</Button>
+            <Button onClick={() => handleDelete(todo)}>삭제</Button>
+          </ButtonGroup>
         </Group>
       ))}
-    </Ul>
+    </React.Fragment>
   );
 };
-
-const Ul = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
 
 const Group = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid red;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 10%;
+`;
+
+const Button = styled.button`
+  padding: 5% 8%;
+`;
+const Li = styled.li`
+  height: 40px;
+  line-height: 40px;
 `;
 
 export default ToDoList;

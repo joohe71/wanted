@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, lazy } from "react";
 // import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToDoAddForm from "./ToDoAddForm";
 import * as Api from "../api/Api";
-import ToDoList from "./ToDoList";
 import ToDoEditForm from "./ToDoEditForm";
 import Header from "../layout/Header";
+import ToDoSkeleton from "../ToDoSkeleton";
+
+const ToDoList = lazy(() => import("./ToDoList"));
 
 export type ToDoData = {
   title: string;
@@ -91,11 +93,22 @@ const ToDo = () => {
           <button onClick={() => setIsClicked((prev) => !prev)}>
             할일 추가 버튼
           </button>
-          <ToDoList
-            todos={todos}
-            handleDelete={handleDelete}
-            handleEditClick={handleEditClick}
-          />
+          <Ul>
+            <Suspense
+              fallback={
+                [1, 2, 3, 4, 5].map((num) => (
+                  <ToDoSkeleton key={`todolistLoading-${num}`} />
+                ))
+                // </ul>
+              }
+            >
+              <ToDoList
+                todos={todos}
+                handleDelete={handleDelete}
+                handleEditClick={handleEditClick}
+              />
+            </Suspense>
+          </Ul>
         </Container>
       </Div>
     </>
@@ -109,6 +122,11 @@ export const Div = styled.div`
 export const Container = styled.div`
   padding: 0 10%;
   min-height: 75vh;
+`;
+
+const Ul = styled.ul`
+  list-style: none;
+  padding: 0;
 `;
 
 export default ToDo;

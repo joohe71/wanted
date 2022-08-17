@@ -45,6 +45,7 @@ const Login = () => {
       await localStorage.setItem("token", res.data.token);
       await alert(res.data.message);
       await navigate("/");
+      await console.log("로그인 성공");
     } catch {
       alert("로그인 실패");
     }

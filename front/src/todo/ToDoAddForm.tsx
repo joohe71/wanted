@@ -43,7 +43,10 @@ const ToDoAddForm = ({ handleAdd, handleUpdate }: ToDoAddFormProps) => {
           value={addData.content}
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Add</button>
+        <div>
+          <button onClick={handleSubmit}>Add</button>
+          <button onClick={handleAdd}>취소</button>
+        </div>
       </Form>
     </Container>
   );

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Header from "../layout/Header";
 import * as Api from "../api/Api";
 import { Container, Div } from "./ToDo";
+import styled from "styled-components";
 
 const ToDoDetail = () => {
   const params = useParams();
@@ -25,11 +26,15 @@ const ToDoDetail = () => {
     <Div>
       <Header title={"Todo Detail"} />
       <Container>
-        <h3>{detailData.title}</h3>
+        <H3>{detailData.title}</H3>
         <div>{detailData.content}</div>
       </Container>
     </Div>
   );
 };
 
+const H3 = styled.h3`
+  width: 100%;
+  word-break: break-all;
+`;
 export default ToDoDetail;

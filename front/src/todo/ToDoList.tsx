@@ -27,7 +27,12 @@ const Group = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  border: 1px solid red;
+  border-bottom: 1px solid #e0e0e0;
+
+  &:hover {
+    border-bottom: 1px solid #ff6e40;
+    cursor: pointer;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -43,6 +48,9 @@ const Button = styled.button`
 const Li = styled.li`
   height: 40px;
   line-height: 40px;
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default ToDoList;

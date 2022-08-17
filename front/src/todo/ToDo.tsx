@@ -19,7 +19,6 @@ export interface ToDoProps {
 }
 
 const ToDo = () => {
-  // const navigate = useNavigate();
   const [isClicked, setIsClicked] = React.useState(false);
   const [isEdited, setIsEdited] = React.useState(false);
   const [isEditData, setIsEditData] = React.useState<ToDoData>({
@@ -58,12 +57,6 @@ const ToDo = () => {
     await copied.splice(todos.indexOf(item), 1);
     await setTodos(copied);
   };
-
-  // 1. 일단 이동하면 안되는 페이지로 들어감
-  // 2. useEffect는 render 페이즈 이후에 실행되므로 무조건 화면이 보이게 됨
-  // useEffect(() => {
-  //   if (localStorage.getItem("token") === null) navigate("/login");
-  // });
 
   useEffect(() => {
     const fetchData = async () => {

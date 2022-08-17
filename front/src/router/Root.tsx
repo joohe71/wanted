@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Login from "./auth/Login";
-import SignUp from "./auth/SignUp";
-import Footer from "./layout/Footer";
-import ToDo from "./todo/ToDo";
-import ToDoDetail from "./todo/ToDoDetail";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "../auth/Login";
+import SignUp from "../auth/SignUp";
+import Footer from "../layout/Footer";
+import ToDo from "../todo/ToDo";
+import ToDoDetail from "../todo/ToDoDetail";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Root = () => {
   return (
@@ -36,12 +32,3 @@ const Root = () => {
 };
 
 export default Root;
-
-type IProtectedRoute = {
-  when: boolean;
-  children: React.ReactElement;
-} & React.ComponentProps<typeof Navigate>;
-
-const ProtectedRoute = ({ when, children, ...props }: IProtectedRoute) => {
-  return when ? <Navigate {...props} /> : children;
-};

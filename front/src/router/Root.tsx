@@ -1,11 +1,14 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../auth/Login";
 import SignUp from "../auth/SignUp";
 import Footer from "../layout/Footer";
-import ToDo from "../todo/ToDo";
+import Loading from "../layout/Loading";
+// import ToDo from "../todo/ToDo";
 import ToDoDetail from "../todo/ToDoDetail";
 import ProtectedRoute from "./ProtectedRoute";
+
+const ToDo = lazy(() => import("../todo/ToDo"));
 
 const Root = () => {
   return (
@@ -18,7 +21,9 @@ const Root = () => {
               when={localStorage.getItem("token") === null}
               to="/login"
             >
-              <ToDo />
+              <Suspense fallback={<Loading />}>
+                <ToDo />
+              </Suspense>
             </ProtectedRoute>
           }
         />
